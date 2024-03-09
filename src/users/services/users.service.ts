@@ -13,8 +13,10 @@ export class UsersService implements UsersIservice {
     return this.repo.save(user);
   }
 
-  findOne(id: number) {
-    return this.repo.findOneBy({ id });
+  async findOne(id: number) {
+    const user = await this.repo.findOneBy({ id });
+    this.validateUserExist(user);
+    return user;
   }
 
   find(email: string) {
@@ -23,9 +25,7 @@ export class UsersService implements UsersIservice {
 
   async update(id: number, attrs: Partial<User>) {
     const user = await this.findOne(id);
-    if (!user) {
-      throw new NotFoundException('User not found.');
-    }
+    this.validateUserExist(user);
 
     Object.assign(user, attrs);
     return this.repo.save(user);
@@ -33,9 +33,13 @@ export class UsersService implements UsersIservice {
 
   async remove(id: number) {
     const user = await this.findOne(id);
+    this.validateUserExist(user);
+    return this.repo.remove(user);
+  }
+
+  private validateUserExist(user: User) {
     if (!user) {
       throw new NotFoundException('User not found.');
     }
-    return this.repo.remove(user);
   }
 }
