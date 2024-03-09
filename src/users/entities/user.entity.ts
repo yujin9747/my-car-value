@@ -1,6 +1,5 @@
 import {
   AfterInsert,
-  AfterRemove,
   AfterUpdate,
   BeforeRemove,
   Column,

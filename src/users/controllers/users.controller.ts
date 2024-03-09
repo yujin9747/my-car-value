@@ -3,19 +3,19 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
-import { CreateUserDto } from './dtos/create-user.dto';
-import { UsersService } from './users.service';
-import { parse } from 'ts-jest';
-import { UpdateUserDto } from './dtos/update-user.dto';
+import { CreateUserDto } from '../dtos/create-user.dto';
+import { UpdateUserDto } from '../dtos/update-user.dto';
+import { UserService, UsersIservice } from '../services/users.iservice';
 
 @Controller('auth')
 export class UsersController {
-  constructor(private userService: UsersService) {}
+  constructor(@Inject(UserService) private userService: UsersIservice) {}
   @Post('signup')
   createUser(@Body() body: CreateUserDto) {
     return this.userService.create(body.email, body.password);
