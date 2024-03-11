@@ -12,7 +12,10 @@ import {
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UpdateUserDto } from '../dtos/update-user.dto';
 import { UserService, UsersIservice } from '../services/users.iservice';
+import { UserDto } from '../dtos/user.dto';
+import { Serialize } from './decorators/interceptor.decorator';
 
+@Serialize(UserDto)
 @Controller('auth')
 export class UsersController {
   constructor(@Inject(UserService) private userService: UsersIservice) {}
@@ -21,8 +24,10 @@ export class UsersController {
     return this.userService.create(body.email, body.password);
   }
 
+  // @Serialize(UserDto)
   @Get(':id')
   findUser(@Param('id') id: string) {
+    console.log('handler is running');
     return this.userService.findOne(parseInt(id));
   }
 
