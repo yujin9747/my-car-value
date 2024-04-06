@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/modules/users.module';
-import { ReportsModule } from './reports/reports.module';
+import { ReportsModule } from './modules/reports/reports.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.entity';
-import { Report } from './reports/report.entity';
+import { Report } from './modules/reports/report.entity';
+import { UsersModule } from './modules/users/users.module';
+import { User } from './modules/users/entities/user.entity';
 
 @Module({
   controllers: [AppController],

@@ -2,10 +2,9 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UsersIservice } from './users.iservice';
 
 @Injectable()
-export class UsersService implements UsersIservice {
+export class UsersService {
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
   create(email: string, password: string) {
@@ -14,6 +13,9 @@ export class UsersService implements UsersIservice {
   }
 
   async findOne(id: number) {
+    if (!id) {
+      return null;
+    }
     const user = await this.repo.findOneBy({ id });
     this.validateUserExist(user);
     return user;
