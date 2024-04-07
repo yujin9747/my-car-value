@@ -3,9 +3,9 @@ import { promisify } from 'util';
 import { Injectable } from '@nestjs/common';
 
 const scrypt = promisify(_scrypt);
-const SIZE_OF_RANDOM_BYTES = 8;
+export const SIZE_OF_RANDOM_BYTES = 8;
 const ENCODING = 'hex';
-const KEY_LENGTH = 32;
+export const KEY_LENGTH = 32;
 
 @Injectable()
 export class HashPasswordService {
@@ -16,7 +16,7 @@ export class HashPasswordService {
     return salt + '.' + hash;
   }
 
-  private createSalt(): string {
+  createSalt(): string {
     const bytes = randomBytes(SIZE_OF_RANDOM_BYTES);
     return bytes.toString(ENCODING);
   }
