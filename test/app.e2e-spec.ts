@@ -26,7 +26,7 @@ describe('Authentication System', () => {
     expect(id).toBeDefined();
     expect(email).toBeDefined();
     expect(email).toEqual(emailReq);
-  })
+  });
 
   it('signup as a new user and then get the currently logged in user', async () => {
     // given
@@ -47,5 +47,5 @@ describe('Authentication System', () => {
 
     // then
     expect(body.email).toEqual(emailReq);
-  })
+  });
 });

@@ -20,7 +20,7 @@ const cookieSession = require('cookie-session');
       useValue: new ValidationPipe({
         whitelist: true,
       }),
-    }
+    },
   ],
   imports: [
     UsersModule,
@@ -38,24 +38,23 @@ const cookieSession = require('cookie-session');
           type: 'sqlite',
           database: config.get<string>('DB_NAME'),
           entities: [User, Report],
-          synchronize: true
+          synchronize: true,
         };
-      }
+      },
     }),
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`
-    })
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+    }),
   ],
 })
-
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
         cookieSession({
           keys: ['color', 'userId'],
-        })
+        }),
       )
       .forRoutes('*');
   }

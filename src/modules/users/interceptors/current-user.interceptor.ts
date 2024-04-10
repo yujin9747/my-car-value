@@ -5,7 +5,6 @@ import {
   NestInterceptor,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { UsersService } from '../services/users.service';
 
 @Injectable()

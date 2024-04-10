@@ -5,8 +5,8 @@ import { User } from './entities/user.entity';
 import { UsersService } from './services/users.service';
 import { HashPasswordService } from './services/hash-password/hash-password.service';
 import { AuthService } from './services/auth/auth.service';
-import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 
 @Module({
   controllers: [UsersController],
@@ -14,10 +14,11 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     UsersService,
     AuthService,
     HashPasswordService,
-    // {
-    //   provide: APP_INTERCEPTOR,
-    //   useClass: CurrentUserInterceptor,
-    // },
+    // signup 할 때만 주석 처리하기 -> TODO() 문제 해결 필요
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CurrentUserInterceptor,
+    },
   ],
   imports: [TypeOrmModule.forFeature([User])],
 })
